@@ -20,6 +20,16 @@ router.get('/', (req, res)=>{
     })
 });
 
+router.get('/index/:id', (req, res)=>{
+    const id = req.params.id;
+    connection.query('SELECT * FROM users WHERE id=?', [id], (error, results)=>{
+        if(error){
+            throw error;
+        }else{
+            res.render('index', {results:results});
+        }
+    })
+});
 
 router.get('/create', (req, res)=>{
     res.render('create');
@@ -31,6 +41,7 @@ router.get('/edit/:id', (req, res)=>{
         if(error){
             throw error;
         }else{
+    // results[0] is taking the only and first row of the entire results but with the only taken id
             res.render('edit', {user:results[0]});
         }
     })
