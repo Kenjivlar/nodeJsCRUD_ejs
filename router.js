@@ -47,6 +47,18 @@ router.get('/edit/:id', (req, res)=>{
     })
 });
 
+router.get('/optiond/:id', (req, res)=>{
+    const id = req.params.id;
+    connection.query('SELECT * FROM users WHERE id=?',[id], (error, results)=>{
+        if(error){
+            throw error;
+        }else{
+    // results[0] is taking the only and first row of the entire results but with the only taken id
+            res.render('optiond', {user:results[0]});
+        }
+    })
+});
+
 router.get('/delete/:id', (req, res)=>{
     const id = req.params.id;
     connection.query('DELETE FROM users WHERE id=?', [id], (error, results)=>{
